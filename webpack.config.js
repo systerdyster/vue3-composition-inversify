@@ -62,7 +62,7 @@ module.exports = (env = {}, argv = {}) => {
                 template: './src/index.html',
                 inject: true,
                 filename: 'index.html',
-                title: 'forum_test2',
+                title: 'vue3-composition-inversify',
                 chunksSortMode: 'none'
             }),
 
