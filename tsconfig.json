@@ -1,0 +1,32 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "target": "es6",
+        "strict": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false,
+        "noImplicitAny": true,
+        "allowUnreachableCode": false,
+        "allowSyntheticDefaultImports": true,
+        "emitDecoratorMetadata": true,
+        "typeRoots": [
+            "node_modules/@types/", 
+            "src/@types/"
+        ],
+        "lib": [
+            "dom", 
+            "es5", 
+            "es2015.promise", 
+            "es6"
+        ],
+        "baseUrl": "./src",
+        "paths": {
+            "__shared/*": ["views/_shared/*"],
+            "__business/*": ["business/*"]
+        }
+    },
+    "include": ["./src"],
+    "exclude": ["./node_modules", "./www"]
+}

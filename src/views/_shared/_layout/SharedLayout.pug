@@ -1,0 +1,9 @@
+div(class="p-5")
+    div 
+        shared-message(:message="message" v-for="message in messages")
+
+    nav(class="p-5")
+        router-link(v-for="link in navLinks" :to="link") {{ link.name }} /
+    
+    div(class="p-5")
+        slot

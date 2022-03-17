@@ -1,0 +1,9 @@
+@import 'tailwindcss/tailwind.css';
+
+h1 {
+    @apply text-2xl;
+}
+
+body {
+    background: pink;
+}
