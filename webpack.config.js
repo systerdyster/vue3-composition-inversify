@@ -8,6 +8,7 @@ const terserJSPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 
 
 module.exports = (env = {}, argv = {}) => {
@@ -66,6 +67,8 @@ module.exports = (env = {}, argv = {}) => {
                 chunksSortMode: 'none'
             }),
 
+            new VueLoaderPlugin(),
+
             new miniCssExtractPlugin({
                 filename: 'style-[contenthash:14].min.css'
             }),
@@ -91,27 +94,32 @@ module.exports = (env = {}, argv = {}) => {
                     test: /\.ts(x?)$/,
                     use: [
                         {
-                            loader: 'ts-loader'
-                        }
+                            loader: 'ts-loader',
+                            options: { appendTsSuffixTo: [/\.vue$/] }
+                        },
+                        
                     ],
                     include: [path.join(__dirname, 'src')]
                 },
                 {
-                    test: /.(pug|jade)$/,
-                    use: [
-                        { 
-                            loader: 'html-loader',
-                            options: {
-                                minimize: false,
-                                esModule: false
-                            }
-                        },
-                        {
-                            loader: 'pug-html-loader'
-                        }],
+                    test: /\.vue$/,
+                    loader: 'vue-loader',
                     include: [
                         path.join(__dirname, "src")
                     ]
+                },
+                {
+                    test: /\.pug$/,
+                    resourceQuery: /^\?vue/,
+                    use: ['pug-plain-loader'],                     
+                    include: [path.join(__dirname, "src")]
+                },
+                {
+                    test: /\.pug$/,
+                    resourceQuery: { not:  [/^\?vue/] },
+                    use: [{ loader: 'html-loader', options: { minimize: false, esModule: false }},
+                        { loader: 'pug-html-loader'}],                     
+                    include: [path.join(__dirname, "src")]
                 },
                 {
                     test: /\.(css)$/,
@@ -158,7 +166,7 @@ module.exports = (env = {}, argv = {}) => {
         },
 
         resolve: {
-            extensions: ['.ts', '.js', '.json', '.css', '.pug'],
+            extensions: ['.ts', '.js', '.json', '.css', '.pug', '.vue'],
             modules: [path.resolve(__dirname, 'src'), 'node_modules'],
             alias: {
                 'vue$': 'vue/dist/vue.esm-bundler.js',

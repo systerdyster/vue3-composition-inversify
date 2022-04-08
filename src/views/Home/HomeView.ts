@@ -2,6 +2,7 @@ import { inject } from 'inversify-props';
 import { IMessage } from 'models/IMessage';
 import { computed, ComputedRef, defineComponent, onMounted, ref, Ref } from 'vue';
 import { ILogHelper } from '__business/helpers/LogHelper';
+import Alert from '__shared/alert/Alert.vue';
 import SharedLayout from '__shared/_layout/SharedLayout';
 
 //Dependency Injection
@@ -13,7 +14,7 @@ class HomeDependenciesProvider {
 export default defineComponent({
     //Component Declaration
     name: 'HomeView',
-    components: { SharedLayout },
+    components: { SharedLayout, Alert },
     template: require('./HomeView.pug'),
 
     //Initial Setup
